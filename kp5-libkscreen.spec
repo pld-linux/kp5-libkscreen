@@ -63,6 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kf5/kscreen_backend_launcher
 %attr(755,root,root) %{_libdir}/libKF5Screen.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libKF5Screen.so.6
+%dir %{_libdir}/qt5/plugins/kf5/kscreen
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_Fake.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_QScreen.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_XRandR.so
