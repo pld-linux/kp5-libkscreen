@@ -1,15 +1,15 @@
-%define		kdeplasmaver	5.5.4
+%define		kdeplasmaver	5.11.0
 %define		qtver		5.3.2
 %define		kpname		libkscreen
 
 Summary:	KDE screen management software
 Name:		kp5-%{kpname}
-Version:	5.5.4
+Version:	5.11.0
 Release:	1
 License:	LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	bc23b108f5e5dccdc03183e4b72c354d
+# Source0-md5:	714e1825e253764ad70ee1f3f9b23154
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	cmake >= 2.8.12
@@ -59,15 +59,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kscreen-doctor
 %attr(755,root,root) %{_libdir}/kf5/kscreen_backend_launcher
 %attr(755,root,root) %{_libdir}/libKF5Screen.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKF5Screen.so.6
+%attr(755,root,root) %ghost %{_libdir}/libKF5Screen.so.7
 %dir %{_libdir}/qt5/plugins/kf5/kscreen
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_Fake.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_QScreen.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_XRandR.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_XRandR11.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_KWayland.so
+
 %{_datadir}/dbus-1/services/org.kde.kscreen.service
 
 %files devel
