@@ -1,20 +1,21 @@
-%define		kdeplasmaver	5.23.5
+%define		kdeplasmaver	5.24.0
 %define		qtver		5.9.0
 %define		kpname		libkscreen
 
 Summary:	KDE screen management software
 Name:		kp5-%{kpname}
-Version:	5.23.5
+Version:	5.24.0
 Release:	1
 License:	LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	7a5e56ab607f9be0664ef18114ef3d7c
+# Source0-md5:	25328009546df7703a45a51c27befc76
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	kf5-extra-cmake-modules
 BuildRequires:	kf5-kwayland-devel
+BuildRequires:	kf5-plasma-wayland-protocols-devel >= 1.6.0
 BuildRequires:	ninja
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	xz
@@ -73,6 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_KWayland.so
 %{_datadir}/dbus-1/services/org.kde.kscreen.service
 %{_datadir}/qlogging-categories5/libkscreen.categories
+%{systemduserunitdir}/plasma-kscreen.service
 
 %files devel
 %defattr(644,root,root,755)
