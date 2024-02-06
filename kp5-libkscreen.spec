@@ -1,30 +1,29 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeplasmaver	5.27.10
+%define		kdeplasmaver	5.93.0
 %define		qtver		5.15.2
 %define		kpname		libkscreen
 
 Summary:	KDE screen management software
 Name:		kp5-%{kpname}
-Version:	5.27.10
-Release:	1
+Version:	5.93.0
+Release:	0.1
 License:	LGPL v2.1+
 Group:		X11/Libraries
-Source0:	https://download.kde.org/stable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
-# Source0-md5:	1f491e823bc83df650d04d5d9948da45
+Source0:	https://download.kde.org/unstable/plasma/%{kdeplasmaver}/%{kpname}-%{version}.tar.xz
+# Source0-md5:	fb36c326d9925c4f72b8b922c30a4a56
 URL:		http://www.kde.org/
-BuildRequires:	Qt5Core-devel >= %{qtver}
+BuildRequires:	Qt6Core-devel >= %{qtver}
 BuildRequires:	cmake >= 3.16.0
-BuildRequires:	kf5-extra-cmake-modules
-BuildRequires:	kf5-kwayland-devel
 BuildRequires:	kf5-plasma-wayland-protocols-devel >= 1.10.0
+BuildRequires:	kf6-extra-cmake-modules
 BuildRequires:	ninja
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		qt5dir		%{_libdir}/qt5
+%define		qt6dir		%{_libdir}/qt6
 
 %description
 KDE screen management software.
@@ -60,37 +59,37 @@ ctest
 rm -rf $RPM_BUILD_ROOT
 %ninja_install -C build
 
+%find_lang %{kpname}6_qt --all-name --with-qm
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files
+%files -f %{kpname}6_qt.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kscreen-doctor
-%attr(755,root,root) %{_prefix}/libexec/kf5/kscreen_backend_launcher
-%attr(755,root,root) %{_libdir}/libKF5Screen.so.*.*.*
-%ghost %{_libdir}/libKF5Screen.so.8
-%attr(755,root,root) %{_libdir}/libKF5ScreenDpms.so.*.*.*
-%ghost %{_libdir}/libKF5ScreenDpms.so.8
-%dir %{_libdir}/qt5/plugins/kf5/kscreen
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_Fake.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_QScreen.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_XRandR.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_XRandR11.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kscreen/KSC_KWayland.so
+%attr(755,root,root) %{_prefix}/libexec/kf6/kscreen_backend_launcher
+%dir %{_libdir}/qt6/plugins/kf6/kscreen
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/kscreen/KSC_Fake.so
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/kscreen/KSC_QScreen.so
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/kscreen/KSC_XRandR.so
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/kscreen/KSC_KWayland.so
 %{_datadir}/dbus-1/services/org.kde.kscreen.service
-%{_datadir}/qlogging-categories5/libkscreen.categories
+%{_datadir}/qlogging-categories6/libkscreen.categories
 %{systemduserunitdir}/plasma-kscreen.service
 %{zsh_compdir}/_kscreen-doctor
+%attr(755,root,root) %{_libdir}/libKF6Screen.so.*.*
+%ghost %{_libdir}/libKF6Screen.so.8
+%attr(755,root,root) %{_libdir}/libKF6ScreenDpms.so.*.*
+%ghost %{_libdir}/libKF6ScreenDpms.so.8
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/libKF5Screen.so
-%{_libdir}/libKF5ScreenDpms.so
-%{_includedir}/KF5/KScreen
-%{_includedir}/KF5/kscreen_version.h
-%{_libdir}/cmake/KF5Screen
-%{_pkgconfigdir}/kscreen2.pc
-%{_libdir}/qt5/mkspecs/modules/qt_KScreen.pri
+%{_libdir}/libKF6Screen.so
+%{_libdir}/libKF6ScreenDpms.so
+%{_includedir}/KF6/KScreen
+%{_includedir}/KF6/kscreen_version.h
+%{_libdir}/cmake/KF6Screen
+%{_pkgconfigdir}/KF6Screen.pc
