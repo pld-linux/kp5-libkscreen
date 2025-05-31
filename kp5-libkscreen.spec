@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	tests		# test suite
 
-%define		qtver		5.15.2
+%define		qt_ver		5.15.2
 %define		kf_ver		5.102.0
 %define		kp_ver		5.27.12
 %define		kpname		libkscreen
@@ -87,13 +87,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
+%find_lang libkscreen5_qt --with-qm
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files
+%files -f libkscreen5_qt.lang
 %defattr(644,root,root,755)
 %doc README.md
 %attr(755,root,root) %{_bindir}/kscreen-doctor
