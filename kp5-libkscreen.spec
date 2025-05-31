@@ -1,11 +1,13 @@
 #
 # Conditional build:
-%bcond_with	tests		# build with tests
+%bcond_with	tests		# test suite
+
 %define		kdeplasmaver	5.27.12
 %define		qtver		5.15.2
 %define		kpname		libkscreen
 
 Summary:	KDE screen management software
+Summary(pl.UTF-8):	Biblioteka do zarządzania ekranami KDE
 Name:		kp5-%{kpname}
 Version:	5.27.12
 Release:	1
@@ -28,6 +30,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 KDE screen management software.
+
+%description -l pl.UTF-8
+Biblioteka do zarządzania ekranami KDE.
 
 %package devel
 Summary:	Header files for %{kpname} development
